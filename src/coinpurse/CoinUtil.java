@@ -3,8 +3,10 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class CoinUtil {
 	public static List<Coin> filterByCurrency(List<Coin> coinlist, String currency) {
@@ -27,11 +29,28 @@ public class CoinUtil {
 	}
 
 	public static void sumByCurrency(List<Coin> coins) {
-		sortByCurrency(coins);
-		String currentCurr = "";
+		Map<String, Double> map = new HashMap<>();
 		for (Coin c : coins) {
-			
+			map.put(c.getCurrency(), map.getOrDefault(c.getCurrency(), 0.0) + c.getValue());
 		}
+		for (String currency : map.keySet()) {
+			System.out.println(map.get(currency) + " " + currency);
+		}
+
+		// sortByCurrency(coins);
+		// if (coins.isEmpty())
+		// return;
+		// String currentCurr = coins.get(0).getCurrency();
+		// double sum = 0;
+		// for (Coin c : coins) {
+		// if ((!c.getCurrency().equals(currentCurr))) {
+		// System.out.println(new Coin(sum, currentCurr));
+		// sum = 0;
+		// currentCurr = c.getCurrency();
+		// }
+		// sum += c.getValue();
+		// }
+		// System.out.println(new Coin(sum, currentCurr));
 	}
 
 	public static void main(String[] args) {

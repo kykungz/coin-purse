@@ -46,7 +46,7 @@ public class Coin implements Comparable<Coin> {
 
 	@Override
 	public String toString() {
-		DecimalFormat decimalFormat = new DecimalFormat("#.#");
+		DecimalFormat decimalFormat = new DecimalFormat();
 		return decimalFormat.format(this.value) + "-" + this.currency;
 	}
 
