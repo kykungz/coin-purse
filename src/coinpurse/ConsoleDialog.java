@@ -2,17 +2,36 @@ package coinpurse;
 
 import java.util.Scanner;
 
+/**
+ * User Interface for the Coin Purse. This class provides simple interactive
+ * dialog for inserting and removing money to/from the purse, and displaying the
+ * balance.
+ * 
+ * @author Kongpon Charanwattanakit
+ *
+ */
 public class ConsoleDialog {
+	// default currency for this dialog
 	public static final String CURRENCY = "Baht";
 	// use a single java.util.Scanner object for reading all input
 	private static Scanner console = new Scanner(System.in);
 
 	private Purse purse;
 
+	/**
+	 * Initialize a new Purse dialog.
+	 * 
+	 * @param purse
+	 *            is the Purse to interact with.
+	 */
 	public ConsoleDialog(Purse purse) {
 		this.purse = purse;
 	}
 
+	/**
+	 * Run the user interface.
+	 *
+	 */
 	public void run() {
 		String choice = "";
 		while (true) {
@@ -81,22 +100,5 @@ public class ConsoleDialog {
 		// discard remainder of the input line so we don't read it again
 		console.nextLine();
 	}
-	// public void run() {
-	// Purse purse = new Purse(3);
-	// System.out.println(purse.getBalance());
-	// System.out.println(purse.count());
-	// System.out.println(purse.isFull());
-	// System.out.println(purse.insert(new Coin(5)));
-	// System.out.println(purse.insert(new Coin(10)));
-	// System.out.println(purse.insert(new Coin(0)));
-	// System.out.println(purse.insert(new Coin(1)));
-	// System.out.println(purse.insert(new Coin(5)));
-	// System.out.println(purse.count());
-	// System.out.println(purse.isFull());
-	// System.out.println(purse.getBalance());
-	// System.out.println(purse.toString());
-	// System.out.println(Arrays.toString(purse.withdraw(12)));
-	// System.out.println(Arrays.toString(purse.withdraw(11)));
-	// System.out.println(purse.toString());
-	// }
+
 }

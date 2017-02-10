@@ -4,16 +4,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A coin purse contains coins. You can insert coins, withdraw money, check the
+ * balance, and check if the purse is full. When you withdraw money, the coin
+ * purse decides which coins to remove.
+ * 
+ * @author Kongpon Charanwattanakit
+ *
+ */
 public class Purse {
+	/** Collection of objects in the purse. */
 	private List<Coin> money;
+	/**
+	 * Capacity is maximum number of coins the purse can hold. Capacity is set
+	 * when the purse is created and cannot be changed.
+	 */
 	private int capacity;
 
 	/**
-	 * A constructor that creates an empty purse with a given capacity.
-	 * {@code new Purse(6)} creates a Purse with capacity 6 coins.
+	 * Create an empty purse with a given capacity.
 	 * 
 	 * @param capacity
-	 *            is the capacity to be set
+	 *            is the maximum number of coins you can put in this purse
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
@@ -21,20 +33,21 @@ public class Purse {
 	}
 
 	/**
-	 * Returns number of coins in the Purse.
+	 * Count and return the number of coins in the purse. This is the number of
+	 * coins, not their value.
 	 * 
-	 * @return the {@code number} of coins in the Purse
+	 * @return the number of coins in the Purse
 	 */
 	public int count() {
 		return money.size();
 	}
 
 	/**
-	 * Returns the {@code value} of all the coins in the Purse. If Purse has two
-	 * 10-Baht and three 1-Baht coins then {@code getBalance()} is 23.
+	 * Get the total value of all items in the purse.
 	 * 
-	 * @return total money in the purse
+	 * @return the total value of items in the purse.
 	 */
+
 	public double getBalance() {
 		double balance = 0;
 		for (Coin c : this.money) {
@@ -44,29 +57,31 @@ public class Purse {
 	}
 
 	/**
-	 * Returns the capacity of the Purse.
+	 * Return the capacity of the coin purse.
 	 * 
-	 * @return the {@code capacity} of the Purse
+	 * @return the capacity
 	 */
 	public int getCapacity() {
 		return capacity;
 	}
 
 	/**
-	 * Returns whether the purse is full (cannot insert more coins).
+	 * Test whether the purse is full. The purse is full if number of items in
+	 * purse equals or greater than the purse capacity.
 	 * 
-	 * @return true if the purse is full, false otherwise.
+	 * @return true if purse is full, false otherwise
 	 */
 	public boolean isFull() {
 		return money.size() >= capacity;
 	}
 
 	/**
-	 * Insert a coin in Purse, Returns {@code true} if insert OK, {@code false}
-	 * if the Purse is full or the Coin is not valud (value <= 0).
+	 * Insert a coin into the purse. The coin is only inserted if the purse has
+	 * space for it and the coin has positive value. No worthless coins!
 	 * 
 	 * @param coin
-	 * @return
+	 *            is a Coin object to insert into purse
+	 * @return true if coin inserted, false if can't insert
 	 */
 	public boolean insert(Coin coin) {
 		if (coin.getValue() <= 0)
@@ -80,13 +95,14 @@ public class Purse {
 	}
 
 	/**
-	 * Try to withdraw money. Return an array of the Coins withdrawn. If purse
-	 * can't withdraw the exact amount, then return {@code null}.
+	 * Withdraw the requested amount of money. Return an array of Coins
+	 * withdrawn from purse, or return null if cannot withdraw the amount
+	 * requested.
 	 * 
 	 * @param amount
-	 *            is the money to be withdrawn
-	 * @return array of Coin withdrawn. null if cannot with draw exact amount of
-	 *         money
+	 *            is the amount to withdraw
+	 * @return array of Coin objects for money withdrawn, or null if cannot
+	 *         withdraw requested amount.
 	 */
 	public Coin[] withdraw(double amount) {
 		List<Coin> templist = new ArrayList<>();
@@ -108,6 +124,9 @@ public class Purse {
 		return null;
 	}
 
+	/**
+	 * Return a string description of the purse contents.
+	 */
 	@Override
 	public String toString() {
 		return this.money.size() + " coins with value " + this.getBalance();

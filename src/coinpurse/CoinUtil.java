@@ -8,7 +8,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Some Coin utility methods for practice using Lists and Comparator.
+ * 
+ * @author Kongpon Charanwattanakit
+ * 
+ * 
+ */
 public class CoinUtil {
+	/**
+	 * Method that examines all the coins in a List and returns only the coins
+	 * that have a currency that matches the parameter value.
+	 * 
+	 * @param coinlist
+	 *            is a List of Coin objects. This list is not modified.
+	 * @param currency
+	 *            is the currency we want. Must not be null.
+	 * @return a new List containing only the elements from coinlist that have
+	 *         the requested currency.
+	 */
 	public static List<Coin> filterByCurrency(List<Coin> coinlist, String currency) {
 		List<Coin> filteredCoins = new ArrayList<>();
 		for (Coin c : coinlist) {
@@ -19,6 +37,14 @@ public class CoinUtil {
 		return filteredCoins;
 	}
 
+	/**
+	 * Method to sort a list of coins by currency. On return, the list (coins)
+	 * will be ordered by currency.
+	 * 
+	 * @param coins
+	 *            is a List of Coin objects we want to sort.
+	 */
+
 	public static void sortByCurrency(List<Coin> coins) {
 		Collections.sort(coins, new Comparator<Coin>() {
 			@Override
@@ -28,6 +54,13 @@ public class CoinUtil {
 		});
 	}
 
+	/**
+	 * Sum coins by currency and print the sum for each currency. Print one line
+	 * for the sum of each currency.
+	 * 
+	 * @param coins
+	 *            is the List of Coin objects to find the sum
+	 */
 	public static void sumByCurrency(List<Coin> coins) {
 		Map<String, Double> map = new HashMap<>();
 		for (Coin c : coins) {
@@ -52,6 +85,13 @@ public class CoinUtil {
 		// }
 		// System.out.println(new Coin(sum, currentCurr));
 	}
+
+	/**
+	 * This method contains some code to test the above methods.
+	 * 
+	 * @param args
+	 *            not used
+	 */
 
 	public static void main(String[] args) {
 		String currency = "Rupee";
