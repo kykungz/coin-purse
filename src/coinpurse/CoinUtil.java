@@ -52,6 +52,7 @@ public class CoinUtil {
 				return o1.getCurrency().compareToIgnoreCase(o2.getCurrency());
 			}
 		});
+
 	}
 
 	/**
@@ -69,21 +70,6 @@ public class CoinUtil {
 		for (String currency : map.keySet()) {
 			System.out.println(map.get(currency) + " " + currency);
 		}
-
-		// sortByCurrency(coins);
-		// if (coins.isEmpty())
-		// return;
-		// String currentCurr = coins.get(0).getCurrency();
-		// double sum = 0;
-		// for (Coin c : coins) {
-		// if ((!c.getCurrency().equals(currentCurr))) {
-		// System.out.println(new Coin(sum, currentCurr));
-		// sum = 0;
-		// currentCurr = c.getCurrency();
-		// }
-		// sum += c.getValue();
-		// }
-		// System.out.println(new Coin(sum, currentCurr));
 	}
 
 	/**
