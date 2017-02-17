@@ -2,6 +2,7 @@ package coinpurse;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class Purse {
 	/** Collection of objects in the purse. */
-	private List<Coin> money;
+	private List<Valuable> money;
 	/**
 	 * Capacity is maximum number of coins the purse can hold. Capacity is set
 	 * when the purse is created and cannot be changed.
@@ -50,7 +51,7 @@ public class Purse {
 
 	public double getBalance() {
 		double balance = 0;
-		for (Coin c : this.money) {
+		for (Valuable c : this.money) {
 			balance += c.getValue();
 		}
 		return balance;
@@ -83,12 +84,17 @@ public class Purse {
 	 *            is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
-	public boolean insert(Coin coin) {
+	public boolean insert(Valuable coin) {
 		if (coin.getValue() <= 0)
 			return false;
 		if (!isFull()) {
 			this.money.add(coin);
-			Collections.sort(this.money);
+			Collections.sort(this.money, new Comparator<Valuable>() {
+				@Override
+				public int compare(Valuable o1, Valuable o2) {
+					return Double.compare(o1.getValue(), o2.getValue());
+				}
+			});
 			return true;
 		}
 		return false;
@@ -104,20 +110,20 @@ public class Purse {
 	 * @return array of Coin objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
-	public Coin[] withdraw(double amount) {
-		List<Coin> templist = new ArrayList<>();
+	public Valuable[] withdraw(double amount) {
+		List<Valuable> templist = new ArrayList<>();
 		for (int i = this.money.size() - 1; i >= 0; i--) {
-			Coin c = this.money.get(i);
+			Valuable c = this.money.get(i);
 			if (c.getValue() <= amount) {
 				amount = amount - c.getValue();
 				templist.add(c);
 			}
 		}
 		if (amount == 0) {
-			for (Coin tempc : templist) {
+			for (Valuable tempc : templist) {
 				this.money.remove(tempc);
 			}
-			Coin[] withdraw = new Coin[templist.size()];
+			Valuable[] withdraw = new Valuable[templist.size()];
 			templist.toArray(withdraw);
 			return withdraw;
 		}
@@ -129,7 +135,18 @@ public class Purse {
 	 */
 	@Override
 	public String toString() {
-		return this.money.size() + " coins with value " + this.getBalance();
+		return this.money.size() + " items with value " + this.getBalance();
+	}
+
+	public static void main(String[] args) {
+		Purse p = new Purse(10);
+		p.insert(new Coin(20));
+		p.insert(new Coin(12));
+		p.insert(new Coin(25));
+		p.insert(new Banknote(120));
+		p.insert(new Banknote(14));
+		p.insert(new Banknote(62));
+		System.out.println(p.money);
 	}
 
 }

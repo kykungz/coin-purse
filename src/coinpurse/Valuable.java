@@ -1,0 +1,16 @@
+package coinpurse;
+
+public interface Valuable {
+	/**
+	 * Get value of this item.
+	 * @return value of the item
+	 */
+	public double getValue();
+
+	/**
+	 * Get the currency of this item.
+	 * @return currency of the item
+	 */
+	public String getCurrency();
+
+}

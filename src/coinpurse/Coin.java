@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
  * @author Kongpon Charanwattanakit
  *
  */
-public class Coin implements Comparable<Coin> {
+public class Coin implements Valuable {
 	/** Value of the coin. */
 	private double value;
 	/** Default currency. */
@@ -43,6 +43,7 @@ public class Coin implements Comparable<Coin> {
 	 * 
 	 * @return this coin {@code value}
 	 */
+	@Override
 	public double getValue() {
 		return value;
 	}
@@ -52,6 +53,7 @@ public class Coin implements Comparable<Coin> {
 	 * 
 	 * @return this coin {@code currency}
 	 */
+	@Override
 	public String getCurrency() {
 		return currency;
 	}
@@ -72,22 +74,6 @@ public class Coin implements Comparable<Coin> {
 			return false;
 		Coin other = (Coin) obj;
 		return this.value == other.value && this.currency == other.currency;
-	}
-
-	/**
-	 * Compare this coin with another coin. Return -1 if this coin has less
-	 * value than the comparing coin, 0 if it is equal, and 1 if this coin has a
-	 * greater value.
-	 * 
-	 * @param o
-	 *            is the Coin object to compare
-	 * @return 1 if this coin has greater value<br>
-	 *         0 if both have same value<br>
-	 *         -1 if this coin has lesser value
-	 */
-	@Override
-	public int compareTo(Coin o) {
-		return (int) Math.signum(this.value - o.value);
 	}
 
 	/**

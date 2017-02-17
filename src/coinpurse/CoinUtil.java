@@ -27,9 +27,9 @@ public class CoinUtil {
 	 * @return a new List containing only the elements from coinlist that have
 	 *         the requested currency.
 	 */
-	public static List<Coin> filterByCurrency(List<Coin> coinlist, String currency) {
-		List<Coin> filteredCoins = new ArrayList<>();
-		for (Coin c : coinlist) {
+	public static List<Valuable> filterByCurrency(List<? extends Valuable> coinlist, String currency) {
+		List<Valuable> filteredCoins = new ArrayList<>();
+		for (Valuable c : coinlist) {
 			if (c.getCurrency().equals(currency)) {
 				filteredCoins.add(c);
 			}
@@ -45,10 +45,10 @@ public class CoinUtil {
 	 *            is a List of Coin objects we want to sort.
 	 */
 
-	public static void sortByCurrency(List<Coin> coins) {
-		Collections.sort(coins, new Comparator<Coin>() {
+	public static void sortByCurrency(List<? extends Valuable> coins) {
+		Collections.sort(coins, new Comparator<Valuable>() {
 			@Override
-			public int compare(Coin o1, Coin o2) {
+			public int compare(Valuable o1, Valuable o2) {
 				return o1.getCurrency().compareToIgnoreCase(o2.getCurrency());
 			}
 		});
@@ -59,12 +59,12 @@ public class CoinUtil {
 	 * Sum coins by currency and print the sum for each currency. Print one line
 	 * for the sum of each currency.
 	 * 
-	 * @param coins
+	 * @param items
 	 *            is the List of Coin objects to find the sum
 	 */
-	public static void sumByCurrency(List<Coin> coins) {
+	public static void sumByCurrency(List<? extends Valuable> items) {
 		Map<String, Double> map = new HashMap<>();
-		for (Coin c : coins) {
+		for (Valuable c : items) {
 			map.put(c.getCurrency(), map.getOrDefault(c.getCurrency(), 0.0) + c.getValue());
 		}
 		for (String currency : map.keySet()) {
@@ -86,7 +86,7 @@ public class CoinUtil {
 		int size = coins.size();
 		System.out.print(" INPUT: ");
 		printList(coins, " ");
-		List<Coin> rupees = filterByCurrency(coins, currency);
+		List<Valuable> rupees = filterByCurrency(coins, currency);
 		System.out.print("RESULT: ");
 		printList(rupees, " ");
 		if (coins.size() != size)
