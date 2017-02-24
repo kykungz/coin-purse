@@ -15,7 +15,7 @@ public class ConsoleDialog {
 	public static final String CURRENCY = "Baht";
 	// use a single java.util.Scanner object for reading all input
 	private static Scanner console = new Scanner(System.in);
-
+	private MoneyFactory factory;
 	private Purse purse;
 
 	/**
@@ -26,6 +26,7 @@ public class ConsoleDialog {
 	 */
 	public ConsoleDialog(Purse purse) {
 		this.purse = purse;
+		this.factory = MoneyFactory.getInstance();
 	}
 
 	/**
@@ -67,14 +68,15 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
-			double value = scanline.nextDouble();
-
-			Valuable money;
-			if (value >= 20) {
-				money = new Banknote(value);
-			} else {
-				money = new Coin(value);
+			String value = scanline.nextLine();
+			Valuable money = null;
+			try {
+				money = factory.createMoney(value);
+			} catch (Exception e) {
+				System.out.println("Sorry, " + value + " is not valid amount.");
+				continue;
 			}
+
 			System.out.printf("Deposit %s... ", money.toString());
 			boolean ok = purse.insert(money);
 			System.out.println((ok ? "ok" : "FAILED"));

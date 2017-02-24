@@ -1,7 +1,5 @@
 package coinpurse;
 
-import java.text.DecimalFormat;
-
 /**
  * Coin represents coinage (money) with a fixed value and currency.
  * 
@@ -9,6 +7,7 @@ import java.text.DecimalFormat;
  *
  */
 public class Coin extends AbstractValuable {
+
 	/**
 	 * Initialize the Coin with a specific value and a default currency of
 	 * {@code Baht}
@@ -32,15 +31,9 @@ public class Coin extends AbstractValuable {
 		super(value, curr);
 	}
 
-	/**
-	 * Return a String describe the coin {@code value} and {@code currency}
-	 * 
-	 * @return string that describes the coin
-	 */
 	@Override
 	public String toString() {
-		DecimalFormat decimalFormat = new DecimalFormat();
-		return decimalFormat.format(this.value) + "-" + this.currency;
+		return super.toString() + " coin";
 	}
 
 }

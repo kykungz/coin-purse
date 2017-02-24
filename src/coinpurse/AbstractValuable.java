@@ -1,11 +1,14 @@
 package coinpurse;
 
+import java.text.DecimalFormat;
+
 public class AbstractValuable implements Valuable {
 
 	/** Value of the coin. */
 	protected double value;
 	/** Default currency. */
 	protected String currency;
+	private String secondCurrency;
 
 	public AbstractValuable(double value, String currency) {
 		this.value = value;
@@ -38,19 +41,22 @@ public class AbstractValuable implements Valuable {
 	}
 
 	@Override
+	public void setSecondCurrency(String secondCurrency) {
+		this.secondCurrency = secondCurrency;
+	}
+
+	@Override
 	public int compareTo(Valuable o) {
-		int compareCurrency = this.getCurrency().compareToIgnoreCase(o.getCurrency());
-		if (compareCurrency == 0) {
+		if (this.getCurrency().equalsIgnoreCase(o.getCurrency()))
 			return Double.compare(this.getValue(), o.getValue());
-		}
-		return compareCurrency;
+		return this.getCurrency().compareToIgnoreCase(o.getCurrency());
 	}
 
 	/**
-	 * Test whether two coins has the same {@code value} and {@code currency}.
+	 * Test whether two items has the same {@code value} and {@code currency}.
 	 * 
 	 * @param obj
-	 *            is the coin to compare
+	 *            is the item to compare
 	 * @return true if it has same {@code value} and {@code currency}, false
 	 *         otherwise
 	 */
@@ -62,6 +68,12 @@ public class AbstractValuable implements Valuable {
 			return false;
 		Valuable other = (Valuable) obj;
 		return this.getValue() == other.getValue() && this.getCurrency() == other.getCurrency();
+	}
+
+	@Override
+	public String toString() {
+		DecimalFormat df = new DecimalFormat();
+		return value < 1 ? df.format(value * 100) + " " + secondCurrency : df.format(value) + " " + currency;
 	}
 
 }

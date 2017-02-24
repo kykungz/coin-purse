@@ -1,9 +1,9 @@
 package coinpurse;
 
 public interface Valuable extends Comparable<Valuable> {
-	
+
 	public static final String DEFAULT_CURRENCY = "Baht";
-	
+
 	/**
 	 * Get value of this item.
 	 * 
@@ -18,4 +18,5 @@ public interface Valuable extends Comparable<Valuable> {
 	 */
 	public String getCurrency();
 
+	public void setSecondCurrency(String secondCurrency);
 }
