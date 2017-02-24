@@ -63,12 +63,27 @@ public class CoinUtil {
 	 *            is the List of Coin objects to find the sum
 	 */
 	public static void sumByCurrency(List<? extends Valuable> items) {
+
+		/*
+		 * key(String) | value(Double)
+		 * ---------------------------
+		 *	 "Rupee"   |   12.0
+		 *   "Baht"    |  28.25
+		 *   "Ringgit" |   58.0
+		 */
+
 		Map<String, Double> map = new HashMap<>();
+		
 		for (Valuable c : items) {
-			map.put(c.getCurrency(), map.getOrDefault(c.getCurrency(), 0.0) + c.getValue());
+			if (map.containsKey(c.getCurrency())) {
+				map.put(c.getCurrency(), map.get(c.getCurrency()) + c.getValue());
+			} else {
+				map.put(c.getCurrency(), c.getValue());
+			}
 		}
-		for (String currency : map.keySet()) {
-			System.out.println(map.get(currency) + " " + currency);
+		
+		for (String key : map.keySet()) {
+			System.out.println(key + " " + map.get(key));
 		}
 	}
 
