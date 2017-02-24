@@ -1,7 +1,5 @@
 package coinpurse;
 
-import java.util.ResourceBundle;
-
 /**
  * Money Factory is a factory class for creating Valuable items.
  * 
@@ -29,7 +27,6 @@ public abstract class MoneyFactory {
 	 * @return MoneyFactory instance
 	 */
 	public static MoneyFactory getInstance() {
-		setMoneyFactory();
 		return factory;
 	}
 
@@ -64,17 +61,8 @@ public abstract class MoneyFactory {
 	/**
 	 * Set the MoneyFactory depending on the properties file.
 	 */
-	public static void setMoneyFactory() {
-		if (factory == null) {
-			ResourceBundle bundle = ResourceBundle.getBundle("purse");
-			String factoryclass = bundle.getString("moneyFactory");
-			try {
-				factory = (MoneyFactory) Class.forName(factoryclass).newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Error creating MoneyFactory: " + e.getMessage());
-			}
-		}
+	public static void setMoneyFactory(MoneyFactory factory) {
+		MoneyFactory.factory = factory;
 	}
 
 	/**
@@ -92,5 +80,4 @@ public abstract class MoneyFactory {
 		}
 		return false;
 	}
-
 }

@@ -83,6 +83,7 @@ public class ConsoleDialog {
 		}
 		if (scanline.hasNext())
 			System.out.println("Invalid input: " + scanline.next());
+		scanline.close();
 	}
 
 	/**

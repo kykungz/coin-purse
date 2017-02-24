@@ -1,7 +1,6 @@
 package coinpurse;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * A main class to create objects and connect objects together. The user
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public class Main {
 	/* purse's capacity. */
-	private static int CAPACITY = 10;
+	private static int CAPACITY = 40;
 
 	/**
 	 * Configure and start the application.
@@ -20,27 +19,25 @@ public class Main {
 	 *            not used
 	 */
 	public static void main(String[] args) {
-//		MoneyFactory factory = MoneyFactory.getInstance();
-//		try {
-//			List<Valuable> purse = new ArrayList<>();
-//			purse.add(factory.createMoney(10));
-//			purse.add(factory.createMoney(5));
-//			purse.add(factory.createMoney(20));
-//			purse.add(factory.createMoney(50));
-//			purse.add(factory.createMoney(100));
-//			purse.add(factory.createMoney("0.1"));
-//			purse.add(factory.createMoney(0.2));
-//
-//			for (Valuable v : purse) {
-//				System.out.println(v);
-//			}
-//		} catch (IllegalArgumentException e) {
-//			e.printStackTrace();
-//			System.out.println("exception");
-//		}
+		ResourceBundle bundle = ResourceBundle.getBundle("purse");
+		String factoryclass = bundle.getString("moneyFactory");
+		MoneyFactory factory = null;
+		try {
+			factory = (MoneyFactory) Class.forName(factoryclass).newInstance();
+		} catch (ClassCastException e) {
+			System.out.println(factoryclass + " is not type MoneyFactory");
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Error creating MoneyFactory " + e.getMessage());
+			e.printStackTrace();
+		}
+		if (factory == null)
+			System.exit(1);
+		else
+			MoneyFactory.setMoneyFactory(factory);
 
-		 Purse purse = new Purse(CAPACITY);
-		 ConsoleDialog consoleDialog = new ConsoleDialog(purse);
-		 consoleDialog.run();
+		Purse purse = new Purse(CAPACITY);
+		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
+		consoleDialog.run();
 	}
 }
