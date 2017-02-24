@@ -1,22 +1,29 @@
 package coinpurse;
 
-public interface Valuable extends Comparable<Valuable> {
+import java.text.DecimalFormat;
 
-	public static final String DEFAULT_CURRENCY = "Baht";
+/**
+ * An interface for a money that has value and currency.
+ * 
+ * @author Kongpon Charanwattanakit
+ *
+ */
+public interface Valuable extends Comparable<Valuable> {
+	/** Decimal formatter for removing extra 0s. */
+	public static final DecimalFormat FORMATTER = new DecimalFormat();
 
 	/**
-	 * Get value of this item.
+	 * Return the value of this item.
 	 * 
 	 * @return value of the item
 	 */
 	public double getValue();
 
 	/**
-	 * Get the currency of this item.
+	 * Return the currency of this item.
 	 * 
 	 * @return currency of the item
 	 */
 	public String getCurrency();
 
-	public void setSecondCurrency(String secondCurrency);
 }

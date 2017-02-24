@@ -1,50 +1,50 @@
 package coinpurse;
 
-import java.text.DecimalFormat;
-
+/**
+ * This class provides a skeletal implementation of the {@link Valuable}
+ * interface to minimize the effort required to implement this interface.
+ * 
+ * @author Kongpon Charanwattanakit
+ *
+ */
 public class AbstractValuable implements Valuable {
-
-	/** Value of the coin. */
-	protected double value;
 	/** Default currency. */
 	protected String currency;
-	private String secondCurrency;
 
+	/** Value of the item */
+	protected double value;
+
+	/**
+	 * Constructs a AbstractValuable with a value and currency;
+	 * 
+	 * @param value
+	 *            is the value of this item
+	 * @param currency
+	 *            is the currency of this item
+	 */
 	public AbstractValuable(double value, String currency) {
 		this.value = value;
 		this.currency = currency;
 	}
 
-	public AbstractValuable(double value) {
-		this.value = value;
-		this.currency = Valuable.DEFAULT_CURRENCY;
-	}
-
-	/**
-	 * Return the {@code value} of this coin.
-	 * 
-	 * @return this coin {@code value}
-	 */
 	@Override
 	public double getValue() {
 		return value;
 	}
 
-	/**
-	 * Return the {@code currency} of this coin.
-	 * 
-	 * @return this coin {@code currency}
-	 */
 	@Override
 	public String getCurrency() {
 		return currency;
 	}
 
-	@Override
-	public void setSecondCurrency(String secondCurrency) {
-		this.secondCurrency = secondCurrency;
-	}
-
+	/**
+	 * Compare this Valuable to another by its currency and value.
+	 * 
+	 * @param o
+	 *            is a Valuable object to compare to
+	 * @returna negative integer, zero, or a positive integer as this object is
+	 *          less than, equal to, or greater than the specified object.
+	 */
 	@Override
 	public int compareTo(Valuable o) {
 		if (this.getCurrency().equalsIgnoreCase(o.getCurrency()))
@@ -70,10 +70,14 @@ public class AbstractValuable implements Valuable {
 		return this.getValue() == other.getValue() && this.getCurrency() == other.getCurrency();
 	}
 
+	/**
+	 * Returns a string described this Valuable item.
+	 * 
+	 * @return description of the item
+	 */
 	@Override
 	public String toString() {
-		DecimalFormat df = new DecimalFormat();
-		return value < 1 ? df.format(value * 100) + " " + secondCurrency : df.format(value) + " " + currency;
+		return Valuable.FORMATTER.format(this.getValue()) + " " + this.getCurrency();
 	}
 
 }

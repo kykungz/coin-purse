@@ -2,32 +2,68 @@ package coinpurse;
 
 import java.util.ResourceBundle;
 
+/**
+ * Money Factory is a factory class for creating Valuable items.
+ * 
+ * @author Kongpon Charanwattanakit
+ *
+ */
 public abstract class MoneyFactory {
-	private static MoneyFactory factory;
+	protected long nextSerialNumber = 10000;
 	protected final double[] valid;
-	protected long nextSerialNumber = 1000000;
+	private static MoneyFactory factory;
 
-	protected MoneyFactory(double[] valid) {
+	/**
+	 * Constructs a MoneyFactory with a sequence of a valid values of money.
+	 * 
+	 * @param valid
+	 *            is a value that is valid for creating
+	 */
+	protected MoneyFactory(double... valid) {
 		this.valid = valid;
 	}
 
+	/**
+	 * Returns a MoneyFactory depending on the properties file.
+	 * 
+	 * @return MoneyFactory instance
+	 */
 	public static MoneyFactory getInstance() {
 		setMoneyFactory();
 		return factory;
 	}
 
-	public abstract Valuable createMoney(double value);
+	/**
+	 * Create money by its value.
+	 * 
+	 * @param value
+	 *            is the amount of money to be created
+	 * @return a Valuable object of the specified amount
+	 * @throws IllegalArgumentException
+	 *             if the value is not a valid amount of money
+	 */
+	public abstract Valuable createMoney(double value) throws IllegalArgumentException;
 
-	public Valuable createMoney(String value) {
+	/**
+	 * Create money by its value in String.
+	 * 
+	 * @param value
+	 *            is the amount of money to be created
+	 * @return a Valuable object of the specified amount
+	 * @throws IllegalArgumentException
+	 *             if the value is not a valid amount of money
+	 */
+	public Valuable createMoney(String value) throws IllegalArgumentException {
 		try {
 			return createMoney(Double.parseDouble(value));
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			throw new IllegalArgumentException();
 		}
-		return null;
-
 	}
 
+	/**
+	 * Set the MoneyFactory depending on the properties file.
+	 */
 	public static void setMoneyFactory() {
 		if (factory == null) {
 			ResourceBundle bundle = ResourceBundle.getBundle("purse");
@@ -41,7 +77,14 @@ public abstract class MoneyFactory {
 		}
 	}
 
-	public boolean isValid(double value) {
+	/**
+	 * Check if a value is available for creating.
+	 * 
+	 * @param value
+	 *            is the value to check for
+	 * @return true if it is available, false otherwise
+	 */
+	protected boolean isValid(double value) {
 		for (double d : valid) {
 			if (d == value) {
 				return true;

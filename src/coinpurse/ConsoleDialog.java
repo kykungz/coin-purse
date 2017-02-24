@@ -68,7 +68,7 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
-			String value = scanline.nextLine();
+			String value = scanline.next();
 			Valuable money = null;
 			try {
 				money = factory.createMoney(value);

@@ -138,15 +138,4 @@ public class Purse {
 		return this.money.size() + " items with value " + this.getBalance();
 	}
 
-	public static void main(String[] args) {
-		Purse p = new Purse(10);
-		p.insert(new Coin(20));
-		p.insert(new Coin(12));
-		p.insert(new Coin(25));
-		p.insert(new Banknote(120));
-		p.insert(new Banknote(14));
-		p.insert(new Banknote(62));
-		System.out.println(p.money);
-	}
-
 }
