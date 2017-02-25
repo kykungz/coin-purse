@@ -12,7 +12,8 @@ public class Banknote extends AbstractValuable {
 	private long serialNumber;
 
 	/**
-	 * Constructs a banknote with a specific value and currency.
+	 * Constructs a banknote with a specific value, currency and a serial
+	 * number.
 	 * 
 	 * @param value
 	 *            is the value of banknote
@@ -24,6 +25,18 @@ public class Banknote extends AbstractValuable {
 	public Banknote(double value, String currency, long serialNumber) {
 		super(value, currency);
 		this.serialNumber = serialNumber;
+	}
+
+	/**
+	 * Constructs a banknote with a specific value and currency.
+	 * 
+	 * @param value
+	 *            is the value of banknote
+	 * @param currency
+	 *            is the currency of banknote
+	 */
+	public Banknote(double value, String currency) {
+		super(value, currency);
 	}
 
 	/**
