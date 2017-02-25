@@ -11,8 +11,14 @@ public class AbstractValuable implements Valuable {
 	/** Default currency. */
 	protected String currency;
 
-	/** Value of the item */
+	/** Value of the item. */
 	protected double value;
+
+	/** Currency to be displayed. */
+	protected String displayCurrency;
+
+	/** Value to be displayed. */
+	protected double displayValue;
 
 	/**
 	 * Constructs a AbstractValuable with a value and currency;
@@ -25,6 +31,8 @@ public class AbstractValuable implements Valuable {
 	public AbstractValuable(double value, String currency) {
 		this.value = value;
 		this.currency = currency;
+		this.displayValue = value;
+		this.displayCurrency = currency;
 	}
 
 	@Override
@@ -77,7 +85,7 @@ public class AbstractValuable implements Valuable {
 	 */
 	@Override
 	public String toString() {
-		return Valuable.FORMATTER.format(this.getValue()) + " " + this.getCurrency();
+		return Valuable.FORMATTER.format(this.displayValue) + " " + this.displayCurrency;
 	}
 
 }

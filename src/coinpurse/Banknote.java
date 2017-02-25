@@ -37,7 +37,7 @@ public class Banknote extends AbstractValuable {
 
 	@Override
 	public String toString() {
-		return super.toString() + " note [" + this.serialNumber + "]";
+		return super.toString() + String.format(" note [%s]", serialNumber);
 	}
 
 }

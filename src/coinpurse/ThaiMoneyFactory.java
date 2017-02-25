@@ -18,12 +18,15 @@ public class ThaiMoneyFactory extends MoneyFactory {
 	public Valuable createMoney(double value) {
 		if (!isValid(value))
 			throw new IllegalArgumentException();
-		Valuable money;
-		if (value >= 20) {
-			money = new Banknote(value, DEFAULT_CURRENCY, this.nextSerialNumber++);
-		} else {
-			money = new Coin(value, DEFAULT_CURRENCY, SUB_CURRENCY);
+		if (value >= 20)
+			return new Banknote(value, DEFAULT_CURRENCY, this.nextSerialNumber++);
+		else {
+			Coin money = new Coin(value, DEFAULT_CURRENCY);
+			if (money.getValue() < 1) {
+				money.displayValue *= 100;
+				money.displayCurrency = SUB_CURRENCY;
+			}
+			return money;
 		}
-		return money;
 	}
 }

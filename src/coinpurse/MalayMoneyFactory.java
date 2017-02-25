@@ -18,12 +18,13 @@ public class MalayMoneyFactory extends MoneyFactory {
 	public Valuable createMoney(double value) {
 		if (!isValid(value))
 			throw new IllegalArgumentException();
-		Valuable money;
 		if (value >= 1) {
-			money = new Banknote(value, DEFAULT_CURRENCY, this.nextSerialNumber++);
+			return new Banknote(value, DEFAULT_CURRENCY, this.nextSerialNumber++);
 		} else {
-			money = new Coin(value, DEFAULT_CURRENCY, SUB_CURRENCY);
+			Coin money = new Coin(value, DEFAULT_CURRENCY);
+			money.displayValue *= 100;
+			money.displayCurrency = SUB_CURRENCY;
+			return money;
 		}
-		return money;
 	}
 }

@@ -35,7 +35,7 @@ public class Main {
 			System.exit(1);
 		else
 			MoneyFactory.setMoneyFactory(factory);
-
+		
 		Purse purse = new Purse(CAPACITY);
 		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
 		consoleDialog.run();
