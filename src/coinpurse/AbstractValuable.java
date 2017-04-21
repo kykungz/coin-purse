@@ -1,5 +1,7 @@
 package coinpurse;
 
+import java.util.Comparator;
+
 /**
  * This class provides a skeletal implementation of the {@link Valuable}
  * interface to minimize the effort required to implement this interface.

@@ -1,5 +1,7 @@
 package coinpurse;
 
+import javax.swing.JOptionPane;
+
 /**
  * Money Factory is a factory class for creating Valuable items.
  * 
@@ -22,7 +24,7 @@ public abstract class MoneyFactory {
 	}
 
 	/**
-	 * Returns a MoneyFactory depending on the properties file.
+	 * Returns a MoneyFactory instance.
 	 * 
 	 * @return MoneyFactory instance
 	 */
@@ -62,7 +64,8 @@ public abstract class MoneyFactory {
 	 * Set the MoneyFactory depending on the properties file.
 	 */
 	public static void setMoneyFactory(MoneyFactory factory) {
-		MoneyFactory.factory = factory;
+		if (MoneyFactory.factory == null)
+			MoneyFactory.factory = factory;
 	}
 
 	/**

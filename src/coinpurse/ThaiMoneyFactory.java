@@ -10,7 +10,7 @@ public class ThaiMoneyFactory extends MoneyFactory {
 	private static final String DEFAULT_CURRENCY = "Baht";
 	private static final String SUB_CURRENCY = "Satang";
 
-	public ThaiMoneyFactory() {
+	ThaiMoneyFactory() {
 		super(0.25, 0.5, 1, 2, 5, 10, 20, 50, 100, 500, 1000);
 	}
 

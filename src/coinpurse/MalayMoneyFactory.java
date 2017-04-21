@@ -10,7 +10,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 	private static final String DEFAULT_CURRENCY = "Ringgit";
 	private static final String SUB_CURRENCY = "Sen";
 
-	public MalayMoneyFactory() {
+	MalayMoneyFactory() {
 		super(0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100);
 	}
 
