@@ -1,4 +1,4 @@
-package coinpurse.gui;
+package coinpurse.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -35,22 +35,26 @@ public class StatusObserver extends JFrame implements Observer {
     }
 
     public void run() {
+	setLocationRelativeTo(null);
 	setVisible(true);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-	System.out.println("Up");
-	Purse p = (Purse) o;
-	if (p.isFull()) {
-	    status.setText("FULL");
-	} else if (p.count() <= 0) {
-	    status.setText("EMPTY");
-	} else {
-	    status.setText(p.count() + " Items");
+	if (o instanceof Purse) {
+	    Purse p = (Purse) o;
+	    SwingUtilities.invokeLater(() -> {
+		if (p.isFull()) {
+		    status.setText("FULL");
+		} else if (p.count() <= 0) {
+		    status.setText("EMPTY");
+		} else {
+		    status.setText(p.count() + " Items");
+		}
+		capacityBar.setMaximum(p.getCapacity());
+		capacityBar.setValue((int) p.count());
+	    });
 	}
-	capacityBar.setMaximum(p.getCapacity());
-	capacityBar.setValue((int) p.count());
     }
 
 }

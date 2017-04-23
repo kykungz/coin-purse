@@ -1,6 +1,10 @@
-package coinpurse;
+package coinpurse.ui;
 
 import java.util.Scanner;
+
+import coinpurse.MoneyFactory;
+import coinpurse.Purse;
+import coinpurse.Valuable;
 
 /**
  * User Interface for the Coin Purse. This class provides simple interactive

@@ -1,4 +1,4 @@
-package coinpurse.gui;
+package coinpurse.ui;
 
 import java.awt.Font;
 import java.text.DecimalFormat;
@@ -30,13 +30,18 @@ public class BalanceObserver extends JFrame implements Observer {
     }
 
     public void run() {
+	setLocationRelativeTo(null);
 	setVisible(true);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-	DecimalFormat formatter = new DecimalFormat();
-	balanceLabel.setText(String.format("Balance = %s Baht", formatter.format(((Purse) o).getBalance())));
+	if (o instanceof Purse) {
+	    Purse p = (Purse) o;
+	    DecimalFormat formatter = new DecimalFormat();
+	    String text = String.format("Balance = %s Baht", formatter.format(p.getBalance()));
+	    SwingUtilities.invokeLater(() -> balanceLabel.setText(text));
+	}
     }
 
 }

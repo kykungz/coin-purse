@@ -5,11 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
-
-import coinpurse.gui.BalanceObserver;
-import coinpurse.gui.ListObserver;
-import coinpurse.gui.StatusObserver;
 
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
@@ -48,6 +43,15 @@ public class Purse extends Observable {
      */
     public int count() {
 	return money.size();
+    }
+
+    /**
+     * Return an unmodifiable List of Valuable items in the purse.
+     * 
+     * @return an unmodifiable List of money
+     */
+    public List<Valuable> getMoney() {
+	return Collections.unmodifiableList(money);
     }
 
     /**
@@ -103,7 +107,7 @@ public class Purse extends Observable {
 		}
 	    });
 	    this.setChanged();
-	    this.notifyObservers(this.money);
+	    this.notifyObservers("Deposited " + coin);
 	    return true;
 	}
 	return false;
@@ -135,7 +139,7 @@ public class Purse extends Observable {
 	    Valuable[] withdraw = new Valuable[templist.size()];
 	    templist.toArray(withdraw);
 	    setChanged();
-	    notifyObservers(this.money);
+	    notifyObservers("Withdraw " + amount + " " + templist.get(0).getCurrency());
 	    return withdraw;
 	}
 	return null;

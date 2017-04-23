@@ -1,10 +1,20 @@
 package coinpurse;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ResourceBundle;
 
-import coinpurse.gui.BalanceObserver;
-import coinpurse.gui.ListObserver;
-import coinpurse.gui.StatusObserver;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+
+import coinpurse.ui.BalanceObserver;
+import coinpurse.ui.ConsoleDialog;
+import coinpurse.ui.PurseListFrame;
+import coinpurse.ui.PurseListModel;
+import coinpurse.ui.StatusObserver;
+import coinpurse.ui.TransactionObserver;
 
 /**
  * A main class to create objects and connect objects together. The user
@@ -41,18 +51,28 @@ public class Main {
 	    MoneyFactory.setMoneyFactory(factory);
 
 	Purse purse = new Purse(CAPACITY);
+	/* create observers */
 	BalanceObserver balanceObserver = new BalanceObserver();
 	StatusObserver statusObserver = new StatusObserver();
-	ListObserver listObserver = new ListObserver();
+	TransactionObserver transactionObserver = new TransactionObserver();
+	PurseListModel listModel = new PurseListModel(purse);
+	/* add observers */
 	purse.addObserver(statusObserver);
 	purse.addObserver(balanceObserver);
-	purse.addObserver(listObserver);
-	balanceObserver.run();
-	statusObserver.run();
-	listObserver.run();
+	purse.addObserver(listModel);
+	purse.addObserver(transactionObserver);
+	/* initialize observer */
 	purse.notifyObservers();
-	
+	/* create/display ui */
+
+	PurseListFrame listFrame = new PurseListFrame(listModel);
 	ConsoleDialog consoleDialog = new ConsoleDialog(purse);
+
+	listFrame.run();
+	transactionObserver.run();
+	statusObserver.run();
+	balanceObserver.run();
 	consoleDialog.run();
+
     }
 }
