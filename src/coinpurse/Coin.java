@@ -7,7 +7,6 @@ package coinpurse;
  *
  */
 public class Coin extends AbstractValuable {
-
     /**
      * Constructs a coin with a specific value and currency.
      * 

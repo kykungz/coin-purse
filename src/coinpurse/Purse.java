@@ -6,6 +6,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 
+import coinpurse.strategy.GreedyWithdraw;
+import coinpurse.strategy.RecursiveTest;
+import coinpurse.strategy.RecursiveWithdraw;
+import coinpurse.strategy.WithdrawStrategy;
+
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
  * balance, and check if the purse is full. When you withdraw money, the coin
@@ -17,6 +22,7 @@ import java.util.Observable;
 public class Purse extends Observable {
     /** Collection of objects in the purse. */
     private List<Valuable> money;
+    private WithdrawStrategy strategy;
     /**
      * Capacity is maximum number of coins the purse can hold. Capacity is set
      * when the purse is created and cannot be changed.
@@ -32,7 +38,18 @@ public class Purse extends Observable {
     public Purse(int capacity) {
 	this.capacity = capacity;
 	this.money = new ArrayList<>();
+	setWithdrawStrategy(new RecursiveWithdraw());
 	this.setChanged();
+    }
+
+    /**
+     * Set the WithdrawStrategy of the Purse.
+     * 
+     * @param strategy
+     *            is the WithdrawStrategy to set to
+     */
+    public void setWithdrawStrategy(WithdrawStrategy strategy) {
+	this.strategy = strategy;
     }
 
     /**
@@ -124,25 +141,13 @@ public class Purse extends Observable {
      *         withdraw requested amount.
      */
     public Valuable[] withdraw(double amount) {
-	List<Valuable> templist = new ArrayList<>();
-	for (int i = this.money.size() - 1; i >= 0; i--) {
-	    Valuable c = this.money.get(i);
-	    if (c.getValue() <= amount) {
-		amount = amount - c.getValue();
-		templist.add(c);
-	    }
-	}
-	if (amount == 0) {
-	    for (Valuable tempc : templist) {
-		this.money.remove(tempc);
-	    }
-	    Valuable[] withdraw = new Valuable[templist.size()];
-	    templist.toArray(withdraw);
-	    setChanged();
-	    notifyObservers("Withdraw " + amount + " " + templist.get(0).getCurrency());
-	    return withdraw;
-	}
-	return null;
+	List<Valuable> suggestion = strategy.withdraw(amount, money);
+	if (suggestion == null)
+	    return null;
+	money.removeAll(suggestion);
+	setChanged();
+	notifyObservers("Withdraw " + amount + " " + suggestion.get(0).getCurrency());
+	return suggestion.toArray(new Valuable[suggestion.size()]);
     }
 
     /**
