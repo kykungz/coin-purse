@@ -25,10 +25,10 @@ public class RecursiveTest {
 
     @Test
     public void testSortedList() {
-	List<Valuable> val = intArrayToList(new Integer[] { 2, 2, 2, 5, 10 });
+	List<Valuable> val = intArrayToList(new Integer[] { 5, 10, 1 });
 	insert(val);
-	List<Valuable> suggestion = recur.withdraw(16, purse.getMoney());
-	List<Valuable> expected = intArrayToList(new Integer[] { 10, 2, 2, 2 });
+	List<Valuable> suggestion = recur.withdraw(6, purse.getMoney());
+	List<Valuable> expected = intArrayToList(new Integer[] { 5, 1 });
 	System.out.println(suggestion);
 	assertEquals(expected, suggestion);
     }

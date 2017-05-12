@@ -1,13 +1,6 @@
 package coinpurse;
 
-import java.awt.Dimension;
-import java.awt.Font;
 import java.util.ResourceBundle;
-
-import javax.swing.JDialog;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 
 import coinpurse.ui.BalanceObserver;
 import coinpurse.ui.ConsoleDialog;
@@ -24,7 +17,7 @@ import coinpurse.ui.TransactionObserver;
  */
 public class Main {
     /* purse's capacity. */
-    private static int CAPACITY = 20;
+    private static int CAPACITY = 4;
 
     /**
      * Configure and start the application.
